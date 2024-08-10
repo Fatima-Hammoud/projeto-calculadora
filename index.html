@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="estilo/style.css">
+</head>
+<body>
+    <main>
+        <h1>Escolha a Operação</h1>
+        <section class="tela"></section>
+        <section class="operadores">
+            <div id="soma">+</div>
+            <div id="subtracao">-</div>
+            <div id="multiplicacao">*</div>
+            <div id="divisao">/</div>
+            <div id="igual">=</div>
+            <div id="limpar">C</div>
+        </section>
+        <section class="numeros">
+            <div id="n1">1</div>
+            <div id="n2">2</div>
+            <div id="n3">3</div>
+            <div id="n4">4</div>
+            <div id="n5">5</div>
+            <div id="n6">6</div>
+            <div id="n7">7</div>
+            <div id="n8">8</div>
+            <div id="n9">9</div>
+            <div id="n0">0</div>
+        </section>
+    </main>
+
+    <script>
+        const tela = document.querySelector('.tela');
+        const numeros = document.querySelectorAll('.numeros div');
+        const operadores = document.querySelectorAll('.operadores div');
+        const igual = document.getElementById('igual');
+        const limpar = document.getElementById('limpar');
+
+        let valorTela = '';
+        let valor1 = 0;
+        let valor2 = 0;
+        let resultado = 0;
+        let operacao = '';
+
+        numeros.forEach((numero) => {
+            numero.addEventListener('click', () => {
+                valorTela += numero.innerText;
+                tela.innerText = valorTela;
+            });
+        });
+
+        operadores.forEach((operador) => {
+            operador.addEventListener('click', () => {
+                if (valorTela !== '') {
+                    valor1 = parseFloat(valorTela);
+                    operacao = operador.innerText;
+                    valorTela = '';
+                    tela.innerText = operacao;
+                }
+            });
+        });
+
+        igual.addEventListener('click', () => {
+            if (valorTela !== '') {
+                valor2 = parseFloat(valorTela);
+                switch (operacao) {
+                    case '+':
+                        resultado = valor1 + valor2;
+                        break;
+                    case '-':
+                        resultado = valor1 - valor2;
+                        break;
+                    case '*':
+                        resultado = valor1 * valor2;
+                        break;
+                    case '/':
+                        resultado = valor1 / valor2;
+                        break;
+                }
+                tela.innerText = resultado;
+                valorTela = resultado;
+            }
+        });
+
+        
+        limpar.addEventListener('click', () => {
+            valorTela = '';
+            valor1 = 0;
+            valor2 = 0;
+            resultado = 0;
+            operacao = '';
+            tela.innerText = '';
+        });
+    </script>
+</body>
+</html>
